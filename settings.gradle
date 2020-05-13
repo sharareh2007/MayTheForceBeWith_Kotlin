@@ -1,0 +1,6 @@
+rootProject.name='MayTheForceBeWith_Sharareh'
+
+include ':app', ':domain', ':presentation'
+include ':data'
+include ':remote'
+include ':local'
