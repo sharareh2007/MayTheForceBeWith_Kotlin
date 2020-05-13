@@ -46,17 +46,16 @@ class LocalDataSourcePeopleInfoTest {
     @Test
     fun test_getPeopleInfo_success() {
 
-        val peopleInfoLocal = TestDataGenerator.generatePeopleInfo()
+        val mockPeopleInfo = TestDataGenerator.generatePeopleInfo()
 
         Mockito.`when`(peopleInfoDAO.getPeopleInfo())
-            .thenReturn(Observable.just(ListpeopleInfoLocal))
-
+            .thenReturn(Observable.just(mockPeopleInfo))
 
         localDataSource.getPeopleInfo()
             .test()
             .assertSubscribed()
             .assertValue { peopleList ->
-                peopleInfoLocal.containsAll(
+                mockPeopleInfo.containsAll(
                     peopleList.map {
                         peopleInfoMapper.to(it)
                     }
@@ -64,45 +63,16 @@ class LocalDataSourcePeopleInfoTest {
             }
     }
 
-    @Test
-    fun test_savePeopleInfo_success() {
-        val mockPeopleInfo = TestDataGenerator.generatePeopleInfo()
-
-        localDataSource.savePeopleInfo(
-            mockPeopleInfo.map {
-                peopleInfoMapper.from(it)
-            }
-        )
-
-        Mockito.verify(transactionDao, Mockito.times(1))
-            .addTransactions(mockTransactions)
-    }
 
     @Test
-    fun test_getTransactionById_success() {
-        val mockTransaction = TestDataGenerator.generateTransactions()[0]
-        val transactionId = mockTransaction.transactionId
+    fun test_getPeopleInfo_error() {
 
-        Mockito.`when`(transactionDao.getTransactionById(transactionId))
-            .thenReturn(Observable.just(mockTransaction))
-
-        localDataSource.getTransaction(transactionId)
-            .test()
-            .assertSubscribed()
-            .assertValue {
-                mockTransaction == transactionMapper.to(it)
-            }
-    }
-
-    @Test
-    fun test_getTransactionById_error() {
-        val transactionId = "1234abcde"
         val errorMsg = "ERROR"
 
-        Mockito.`when`(transactionDao.getTransactionById(transactionId))
+        Mockito.`when`(peopleInfoDAO.getPeopleInfo())
             .thenReturn(Observable.error(Throwable(errorMsg)))
 
-        localDataSource.getTransaction(transactionId)
+        localDataSource.getPeopleInfo()
             .test()
             .assertSubscribed()
             .assertError {
@@ -112,6 +82,18 @@ class LocalDataSourcePeopleInfoTest {
     }
 
 
+    @Test
+    fun test_savePeopleInfo_success() {
 
+        val mockPeopleInfo = TestDataGenerator.generatePeopleInfo()[0]
+
+
+        localDataSource.savePeopleInfo(
+            peopleInfoMapper.from(mockPeopleInfo)
+        )
+
+        Mockito.verify(peopleInfoDAO, Mockito.times(1))
+            .savePeopleInfo(mockPeopleInfo)
+    }
 
 }

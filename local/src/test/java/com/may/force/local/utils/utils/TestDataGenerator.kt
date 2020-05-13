@@ -1,6 +1,7 @@
 package com.may.force.local.utils.utils
 
 import com.may.force.local.model.PeopleInfoDetailsLocal
+import com.may.force.local.model.PeopleInfoLocal
 import java.util.*
 
 
@@ -28,8 +29,8 @@ class TestDataGenerator {
             )
         }
 
-        fun generatePeopleInfo(): List<PeopleInfoDetailsLocal> {
-            val t1 = PeopleInfoDetailsLocal(
+        fun generatePeopleInfo(): List<PeopleInfoLocal> {
+            val t1 = PeopleInfoLocal(
                 "anna",
                 "160",
                 "50",
@@ -48,7 +49,7 @@ class TestDataGenerator {
                 "www.test2.com"
 
             )
-            val t2 = PeopleInfoDetailsLocal(
+            val t2 = PeopleInfoLocal(
                 "anna",
                 "160",
                 "50",
@@ -66,7 +67,7 @@ class TestDataGenerator {
                 Date(),
                 "www.test2.com"
             )
-            val t3 = PeopleInfoDetailsLocal(
+            val t3 = PeopleInfoLocal(
                 "anna",
                 "160",
                 "50",
