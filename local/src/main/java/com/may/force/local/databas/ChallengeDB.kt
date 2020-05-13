@@ -38,9 +38,9 @@ abstract class ChallengeDB : RoomDatabase() {
         }
     }
 
-    abstract fun getPeopleInfoDetailsDao(): PeopleInoDetailsDAO
+    abstract fun getPeopleInfoDetailsDao(): PeopleInfoDetailsDAO
 
-    abstract fun getPeopleInfoDao(): PeopleInoDAO
+    abstract fun getPeopleInfoDao(): PeopleInfoDAO
 
 }
 

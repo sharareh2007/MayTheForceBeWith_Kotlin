@@ -46,7 +46,6 @@ class ChallengeRepositoryImpl @Inject constructor(
 
         return remoteDataSource.getPeopleInfoDetails(page)
             .map {
-                localDataSource.savePeopleInfoDetails(page)
                 PeopleInfoDetailsMapper.from(it)
             }.onErrorResumeNext(Observable.empty())
             .concatWith(peopleInfoDetailsObservable)
